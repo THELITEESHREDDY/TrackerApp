@@ -1,0 +1,3 @@
+# Habit Tracker App
+
+This app is actually made for myself to hold my consistency and wanted to push myself in some tasks....
