@@ -2,8 +2,8 @@ import React from 'react'
 
 function DashBoard() {
   return (
-    <div>
-      <h1>DashBoard</h1>
+    <div className='font-bold'>
+      hehe
     </div>
   )
 }

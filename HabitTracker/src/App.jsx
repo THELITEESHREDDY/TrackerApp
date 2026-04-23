@@ -6,14 +6,34 @@ import { Routes,Route } from 'react-router-dom'
 
 function App() {
   
+  const taskList=[
+    {
+      id:1,
+      taskName: "work",
+      taskTime: "xx:XX",
+      isCompleted: false
+    },
+    {
+      id:2,
+      taskName: "DSA",
+      taskTime: "xx:XX",
+      isCompleted: false
+    },
+    {
+      id:3,
+      taskName: "Diet",
+      taskTime: "xx:xx",
+      isCompleted: false
+    }
+  ]
 
   return (
-    <div className='max-h:'>
+    <div className='w-dvw h-dvh'>
       <Navigation />
         <Routes>
           <Route 
             path="/" 
-            element={<Area/>}
+            element={<Area habitList={taskList}/>}
           />
           
           <Route 
