@@ -8,17 +8,17 @@ function TaskHabit({taskHabitDetails,onToggle}) {
         
        onToggle(id);
     }    
-    console.log(taskHabitDetails);
+
   return (
-    <div className="w-full h-full bg-white rounded-xl p-2 mb-2 mt-2 flex justify-between items-center">
+    <div className={`w-full h-full ${taskHabitDetails.isCompleted===true ? "bg-green-600": "bg-white"} rounded-xl p-2 mb-2 mt-2 flex justify-between items-center border-2`}>
        
         <div className="flex items-center space-x-4">
-            <h1 className={`${taskHabitDetails.isCompleted===true ? 'line-through' : ""}`}>{taskHabitDetails.taskName}</h1>
             <input 
                 onChange={()=>handleChange(taskHabitDetails.id)} 
                 type="checkbox" 
                 checked={taskHabitDetails.isCompleted}
             />
+            <h1 className={`${taskHabitDetails.isCompleted===true ? 'line-through' : ""}`}>{taskHabitDetails.taskName}</h1>
         </div>
       
         <p>{taskHabitDetails.taskTime}</p>

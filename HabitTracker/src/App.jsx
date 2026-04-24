@@ -3,10 +3,11 @@ import Area from './components/Area.jsx'
 import DashBoard from './components/DashBoard.jsx'
 import './App.css'
 import { Routes,Route } from 'react-router-dom'
+import { useState } from 'react'
 
 function App() {
   
-  const taskList=[
+  const [habitList,setHabitList]=useState([
     {
       id:1,
       taskName: "work",
@@ -25,7 +26,7 @@ function App() {
       taskTime: "xx:xx",
       isCompleted: false
     }
-  ]
+  ]);
 
   return (
     <div className='w-dvw h-dvh'>
@@ -33,7 +34,7 @@ function App() {
         <Routes>
           <Route 
             path="/" 
-            element={<Area habitList={taskList}/>}
+            element={<Area habitList={habitList} setHabitList={setHabitList}/>}
           />
           
           <Route 

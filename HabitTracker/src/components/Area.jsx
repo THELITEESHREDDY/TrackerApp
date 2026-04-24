@@ -1,26 +1,25 @@
 import React, { useEffect } from 'react'
 import TaskHabitList from './TaskHabitList.jsx';
 import ProgressBarMini from './ProgressBarMini.jsx';
-
-function Area({habitList}) {
+import ProgressBarMaxi from './ProgressBarMaxi.jsx';
+function Area({habitList,setHabitList}) {
 
   const getTaskId=(id)=>{
-    habitList.map((habit)=>(
-      habit.id===id ? habit.isCompleted=!habit.isCompleted : habit.isCompleted
-    ));
+    
+    setHabitList(prev=>{
+    
+      return prev.map(habit =>
+    
+        habit.id===id ? {...habit,isCompleted:!habit.isCompleted} : habit
+    
+      )
+    });
+
     console.log(id);
   }
-  const calculateCompletion=()=>{
-    let totalHabits=habitList.length
-    let completedHabits=0;
-    habitList.map((habit)=>{
-      completedHabits+=(habit.isCompleted==1);
-    })
-    return parseFloat(completedHabits)/totalHabits*100;
-  }
-  useEffect(()=>{
-    calculateCompletion();    
-  },[habitList]);
+  
+  
+
   
   return (
     <div id="AreaDiv" className="flex flex-col md:flex-row min-w-full h-auto bg-amber-100">
@@ -28,10 +27,17 @@ function Area({habitList}) {
       {/* Progress Bar first on mobile */}
       <div
         id="progressBarMiniDiv"
-        className="order-1 w-full md:w-1/2 md:order-2"
+        className="order-1 w-full md:w-1/2 md:order-2 block md:hidden"
       >
         {/* Progress bar content */}
-        <ProgressBarMini getPercentage={calculateCompletion} />
+        <ProgressBarMini  habitList={habitList} />
+      </div>
+      <div
+        id="progressBarMaxiDiv"
+        className="order-1 w-full md:w-1/2 md:order-2 hidden md:block"
+      >
+        {/* Progress bar content */}
+        <ProgressBarMaxi  habitList={habitList}/>
       </div>
 
       {/* Tasks List second on mobile */}
