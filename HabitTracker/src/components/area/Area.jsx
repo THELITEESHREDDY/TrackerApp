@@ -2,6 +2,7 @@ import React from 'react'
 import Achievements from '../Achievements.jsx';
 import HabitProgress from './HabitProgress.jsx';
 import HabitAndTasksList from './HabitAndTasksList.jsx';
+import Month from './Month.jsx';
 
 function Area() {
   return (
@@ -9,6 +10,7 @@ function Area() {
         <Achievements/>
         <HabitProgress/>  
         <HabitAndTasksList/>
+        <Month />
     </div>
   )
 }
