@@ -22,7 +22,7 @@ function Habit() {
     
     
     return (
-        <div className={` w-full h-20 ${isCompleted ? "bg-green-400 text-black" : "bg-white text-black"}  font-mono border-2 rounded-2xl p-2 my-1`} onClick={handleCompletion}>
+        <div className={` w-full h-auto ${isCompleted ? "bg-green-400 text-black" : "bg-white text-black"}  font-mono border-2 rounded-2xl my-2 p-2`} onClick={handleCompletion}>
             <p>Habit/Task Name</p>
             <h1>Work to do today</h1>
             <p>Time</p>

@@ -5,7 +5,7 @@ import ConsistencyBadge from './ConsistencyBadge.jsx';
 
 function StreakArea() {
   return (
-    <div className='w-full rounded-2xl border-2 flex overflow-x-auto snap-x snap-mandatory md:flex-row'>
+    <div className='w-full rounded-2xl border-2 flex overflow-x-auto snap-x snap-mandatory md:flex-row my-4'>
 
         <div className="w-full shrink-0 snap-start md:basis-1/3 m-1">
             <CurrentStreak />

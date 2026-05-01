@@ -6,7 +6,7 @@ import Month from './Month.jsx';
 
 function Area() {
   return (
-    <div className='mt-20vh'>
+    <div className='md:mt-20vh '>
         <Achievements/>
         <HabitProgress/>  
         <HabitAndTasksList/>
