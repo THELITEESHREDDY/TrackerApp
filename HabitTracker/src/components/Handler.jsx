@@ -49,12 +49,21 @@ function Handler() {
     ));
     setHabitsAndTasks(newList);
   }
+  function addDetails(id){
+    console.log(id)
+  }
+  function editDetails(id){
+    console.log(id)
+  }
+  function deleteDetails(id){
+    console.log(id);
+  }
   return (
     <div className='mb-16 mt-0  md:mt-16 md:mb-0 bg-yellow-500 '>
         
             <Routes>
                 <Route path="/" index element={<Area habitsAndTasks={habitsAndTasks} markCompleted={markCompleted}/>}/>
-                <Route path="/dashboard" element={<DashBoard/>}/>
+                <Route path="/dashboard" element={<DashBoard addDetails={addDetails} deleteDetails={deleteDetails} editDetails={editDetails}/>}/>
             </Routes> 
     </div>
   )
