@@ -6,64 +6,37 @@ import Area from './area/Area.jsx';
 
 function Handler() {
 
-  const [habitsAndTasks,setHabitsAndTasks]=useState([
-    {
-      id:0,
-      name:"DSA",
-      description:"Trees",
-      startTime:"6:00",
-      endTime:"8:00",
-      completionTime:null
-    },
-    {
-      id:1,
-      name:"Gym",
-      description:"Chest + Triceps",
-      startTime:"8:30",
-      endTime:"10:30",
-      completionTime:null
-    },
-    {
-      id:2,
-      name:"Development",
-      description:"React Hooks",
-      startTime:"17:30",
-      endTime:"20:30",
-      completionTime:null
-    },
-    {
-      id:3,
-      name:"System Design",
-      description:"HLD of RateLimiter",
-      startTime:"21:00",
-      endTime:"22:00",
-      completionTime:null
-    }
-  ]);
+  const [habitsAndTasks,setHabitsAndTasks]=useState([]);
 
   function markCompleted(id)
   {
     const newList=habitsAndTasks.slice();
+    const time= new Date(Date.now()).toLocaleString().slice(11);
     newList.map((task)=>(
-      task.id===id ? (task.completionTime=== null ?  task.completionTime=Date.now() :  task.completionTime=null) : task.completionTime
+      task.id===id ? (task.completionTime=== null ?  task.completionTime= time :  task.completionTime=null) : task.completionTime
     ));
     setHabitsAndTasks(newList);
   }
-  function addDetails(id){
-    console.log(id)
+  function addDetails(habit){
+    const id=habitsAndTasks.length
+    habit={...habit,id};
+    
+    setHabitsAndTasks([...habitsAndTasks,habit]);
   }
-  function editDetails(id){
-    console.log(id)
+  function editDetails(currHabit){
+    const newHabitsAndTasks=habitsAndTasks.map((habit)=>habit.id===currHabit.id ? currHabit : habit );
+    setHabitsAndTasks(newHabitsAndTasks)  
   }
   function deleteDetails(id){
-    console.log(id);
+    const newHabitsAndTasks=habitsAndTasks.filter((habit)=>habit.id!==id );
+    setHabitsAndTasks(newHabitsAndTasks)  
   }
   return (
     <div className='mb-16 mt-0  md:mt-16 md:mb-0 bg-yellow-500 '>
         
             <Routes>
                 <Route path="/" index element={<Area habitsAndTasks={habitsAndTasks} markCompleted={markCompleted}/>}/>
-                <Route path="/dashboard" element={<DashBoard addDetails={addDetails} deleteDetails={deleteDetails} editDetails={editDetails}/>}/>
+                <Route path="/dashboard" element={<DashBoard addDetails={addDetails} deleteDetailsId={deleteDetails} editDetailsId={editDetails}/>}/>
             </Routes> 
     </div>
   )

@@ -1,125 +1,169 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function EditHabitOrTask({editDetails,detail}) {
-  const [isOpen, setIsOpen]= useState(false);
-  const [details,setDetails]=useState({
-      name:"",
-      isHabit:false,
-      description:"",
-      startTime:"",
-      endTime:""
-    })
+
+function EditHabitOrTask({ editDetailsId, sectionDetails }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [details, setDetails] = useState({
+    name: "",
+    isHabit: false,
+    description: "",
+    startTime: "",
+    endTime: "",
+    id: "",
+  });
+
+  const navigate=useNavigate();
   
-  
-    
-    function handleChanges(e){
-      const { name, value, type, checked } = e.target;
-  
-      const finalValue = type === 'checkbox' ? checked : value;
+  useEffect(() => {
+    if (sectionDetails.section === "edit" ) {
       
-      console.log(name,value);
-      setDetails(prevDetails => ({
-        ...prevDetails,
-        [name]:finalValue}
-      ));
-    };
-  
-    function handleSubmit(){
-      editDetails(details);
-      console.log(details)
-    }
-  
-    return (
-      <div className='w-full h-auto bg-white  rounded-2xl border-2 my-1 '>
-        <button 
-          className='w-full h-auto bg-blue-600 rounded-2xl border p-2   text-center hover:bg-blue-500 cursor-pointer'
-          onClick={()=>setIsOpen(true)}
-        >
-          
-          Edit Task/Habit
-        </button>
-        {isOpen && <div className='w-full h-auto  rounded-b-2xl p-2'>
+      
+      setDetails(sectionDetails);
+
+      setIsOpen(true);
+    } 
+  }, [sectionDetails]);
+
+  function handleChanges(e) {
+    const { name, value, type, checked } = e.target;
+    const finalValue = type === 'checkbox' ? checked : value;
+    setDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: finalValue,
+    }));
+  }
+
+  function handleClose(){
+    setDetails({
+      name: "",
+      isHabit: false,
+      description: "",
+      startTime: "",
+      endTime: "",
+      id: "",
+    })
+    setIsOpen(false);
+  }
+  function handleSubmit() {
+    editDetailsId(details);
+    setDetails({
+      name: "",
+      isHabit: false,
+      description: "",
+      startTime: "",
+      endTime: "",
+      id: "",
+    })
+    setIsOpen(false);
+     navigate("/")
+  }
+
+  return (
+    <div className='w-full h-auto bg-white rounded-2xl border-2 my-1'>
+      <button
+        className='w-full h-auto bg-blue-600 rounded-2xl border p-2 text-center hover:bg-blue-500 cursor-pointer text-white'
+        onClick={() => setIsOpen(true)}
+      >
+        Edit Task/Habit
+      </button>
+      {isOpen && (
+        <div className='w-full h-auto rounded-b-2xl p-2'>
           <div className='w-full h-auto'>
-           {details.isHabit &&<div className='p-1 text-red-600 animate-pulse'> Habit must be strictly followed for minimum of 21 days!!</div>}    
-          
+            {details.isHabit && (
+              <div className='p-1 text-red-600 animate-pulse'>
+                Habit must be strictly followed for minimum of 21 days!!
+              </div>
+            )}
+
             <div className='w-full h-auto my-1 flex justify-evenly'>
-             <label>
-              <input 
-                type="checkbox" 
-                name="isHabit"           
-                checked={details.isHabit} 
-                onChange={handleChanges} 
-              />
-              Is this a habit?
+              <label>
+                <input
+                  type="checkbox"
+                  name="isHabit"
+                  checked={details.isHabit}
+                  onChange={handleChanges}
+                />
+                Is this a habit?
               </label>
             </div>
-  
+
             <div className='w-full h-auto my-1'>
-              <label htmlFor="taskName">{details.isHabit ? "Habit" : "Task"} Name:</label>
-              <input 
-                type="text" 
-                id='taskName' 
+              <label htmlFor="taskName">
+                {details.isHabit ? "Habit" : "Task"} Name:
+              </label>
+              <input
+                type="text"
+                id='taskName'
                 name="name"
+                className='border w-full p-1'
                 value={details.name}
                 onChange={handleChanges}
-                placeholder='Task Name'  
-              required/>
+                placeholder='Task Name'
+                required
+              />
             </div>
-  
-            <div className='w-full h-auto'>
-              <label htmlFor="taskDescription">{details.isHabit ? "Habit" : "Task"} Description:</label>
-              <input 
-                type="text" 
-                id='taskDescription' 
+
+            <div className='w-full h-auto my-1'>
+              <label htmlFor="taskDescription">
+                {details.isHabit ? "Habit" : "Task"} Description:
+              </label>
+              <input
+                type="text"
+                id='taskDescription'
                 name="description"
-                placeholder='Task Description'  
+                className='border w-full p-1'
+                placeholder='Task Description'
                 value={details.description}
                 onChange={handleChanges}
-              required/>
+                required
+              />
             </div>
-  
-            <div className='w-full h-auto'>
+
+            <div className='w-full h-auto my-1'>
               <label htmlFor="StartTime">Start Time:</label>
-              <input 
-                type="datetime-local" 
+              <input
+                type="datetime-local"
                 id='StartTime'
-                name="startTime"   
+                name="startTime"
+                className='border w-full p-1'
+                value={details.startTime}
                 onChange={handleChanges}
-              required/>
+                required
+              />
             </div>
-            <div className='w-full h-auto'>
+            <div className='w-full h-auto my-1'>
               <label htmlFor="EndTime">End Time:</label>
-              <input 
-                type="datetime-local" 
+              <input
+                type="datetime-local"
                 id='EndTime'
-                name="endTime"   
+                name="endTime"
+                className='border w-full p-1'
+                value={details.endTime}
                 onChange={handleChanges}
-              required/>
+                required
+              />
             </div>
-        
-          </div>    
-          <div className='w-full h-auto flex justify-between'>
+          </div>
+
+          <div className='w-full h-auto flex justify-between mt-4'>
             <button
-              onClick={()=>setIsOpen(false)}
-              className='w-[30%] h-auto bg-white-600 rounded-2xl border p-2   text-center hover:bg-blue-500 cursor-pointer mx-0.5'
-            > 
+              onClick={() => handleClose()}
+              className='w-[30%] h-auto bg-white rounded-2xl border p-2 text-center hover:bg-blue-500 cursor-pointer'
+            >
               Close
             </button>
             <button
-              type='submit'
-              className='w-[30%] h-auto bg-blue-600 rounded-2xl border p-2   text-center hover:bg-blue-500 cursor-pointer'
-              onClick={()=>handleSubmit()}
-            > 
-              Edit
+              className='w-[30%] h-auto bg-blue-600 rounded-2xl border p-2 text-white text-center hover:bg-blue-500 cursor-pointer'
+              onClick={handleSubmit}
+            >
+              Save
             </button>
           </div>
-  
-        </div>}
-      </div>
-      
-  
-    )
+        </div>
+      )}
+    </div>
+  );
 }
 
-export default EditHabitOrTask
+export default EditHabitOrTask;

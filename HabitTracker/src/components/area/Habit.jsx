@@ -5,11 +5,10 @@ import { useNavigate } from 'react-router-dom';
 function Habit({habit,taskHandler}) {
 
     const navigate=useNavigate();
-    const [details,setDetails]=useState({})
+  
     const [isCompleted,setIsCompleted]=useState(false);
-    const [edit,setEdit]=useState(false);
     const lastTap=useRef(0);
-    const timerRef=useRef(null);
+
    
     function handleCompletion(id){
         
@@ -21,16 +20,14 @@ function Habit({habit,taskHandler}) {
             taskHandler(id)    
             
         }
-        else{
-            setEdit(!edit)
-        }
+       
         lastTap.current=now;
 
     }
     
-    function handleNavigate(details){
+    function handleNavigate({section}){
         
-        navigate('/dashboard',{state: details});
+        navigate('/dashboard',{state: {...habit,section: section}});
         
     }
     
@@ -45,14 +42,15 @@ function Habit({habit,taskHandler}) {
                 className=' border-l-2 rounded-2xl  p-2 grow'
                 onClick={()=>handleCompletion(habit.id)}
             >
-                <p>{habit.name}</p>
-                <h1 className='font-extrabold'>{habit.description}</h1>
+                <p>Name: {habit.name}</p>
+                <h1 className='font-extrabold'>Description: {habit.description}</h1>
                 <p>Start Time: {habit.startTime}</p>
                 <p>End Time: {habit.endTime}</p>
+                {habit.completionTime && <p>Completion Time: {habit.completionTime}</p>}
             </div>
             <div className='  flex flex-col justify-evenly  '>
-                <button className='w-auto h-full bg-blue-600 hover:bg-blue-400 flex items-center justify-center px-1' onClick={()=>handleNavigate({section:"edit",habit:habit})}>Edit</button>
-                <button className='w-auto h-full bg-red-600 hover:bg-red-400 flex items-center justify-center px-1' onClick={()=>handleNavigate({section:"edit",habit:habit})}>Delete</button>
+                <button className='w-auto h-full bg-blue-600 hover:bg-blue-400 flex items-center justify-center px-1' onClick={()=>handleNavigate({section:"edit"})}>Edit</button>
+                <button className='w-auto h-full bg-red-600 hover:bg-red-400 flex items-center justify-center px-1' onClick={()=>handleNavigate({section:"delete"})}>Delete</button>
 
             </div>
             

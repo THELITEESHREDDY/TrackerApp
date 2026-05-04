@@ -7,13 +7,18 @@ import HeatMapArea from './HeatMapArea.jsx';
 import SuccessfullHabits from './SuccessfullHabits.jsx';
 import HabitOrTaskEditor from './HabitOrTaskEditor.jsx';
 
-function DashBoard({addDetails,deleteDetails,editDetails,details}) {
+function DashBoard({addDetails,deleteDetailsId,editDetailsId}) {
+
+  const location = useLocation();
+  const sectionDetails = location.state || {};
+
+
   return (
-    <div className=' md:mt-20vh'>
+    <div className='md:mt-20vh'>
       <StreakArea/>    
       <HeatMapArea/>  
       <SuccessfullHabits/>
-      <HabitOrTaskEditor addDetails={addDetails} deleteDetails={deleteDetails} editDetails={editDetails} details={details} />
+      <HabitOrTaskEditor addDetails={addDetails} deleteDetailsId={deleteDetailsId} editDetailsId={editDetailsId} sectionDetails={sectionDetails} />
     </div>
   )
 }
